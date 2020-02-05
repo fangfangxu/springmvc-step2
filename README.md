@@ -21,8 +21,76 @@ SpringMVC相关
          2.web.xml配置DispatcherServlet
          3.配置applicationContext的mvc标记
          4.开发Controller控制器      
+
+7、配置文件：
+        
+        web.xml:
+        <?xml version="1.0" encoding="UTF-8"?>
+        <web-app xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+                 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                 xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
+                 version="3.1">
+            <!--配置DispatcherServlet-->
+            <servlet>
+                <servlet-name>springmvc</servlet-name>
+        
+              <!--  DispatcherServlet是Spring MVC最核心的对象
+                DispatcherServlet用于拦截Http请求，
+                并根据请求的URL调用与之对应的Controller方法，来完成Http请求的处理
+                -->
+                <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+        
+               <!--还得告诉DispatcherServlet在IOC容器初始化时要加载
+               哪个applicationContext.xml-->
+                <init-param>
+                    <param-name>contextConfigLocation</param-name>
+                    <param-value>classpath:applicationContext.xml</param-value>
+                </init-param>
+        
+                <!--在web应用启动时自动创建Spring IOC容器，并初始化DispatcherServlet，
+                如果不配置，也会对IOC容器和DispatcherServlet进行初始化，只是实在第一次访
+                问URL的时候对其进行初始化-->
+                <load-on-startup>0</load-on-startup>
+            </servlet>
+        
+            <servlet-mapping>
+                <servlet-name>springmvc</servlet-name>
+                <url-pattern>/</url-pattern>
+            </servlet-mapping>
+        
+        
+        </web-app>
          
-7、URL Mapping
+         applicationContext.xml：
+         <?xml version="1.0" encoding="UTF-8"?>
+         <beans xmlns="http://www.springframework.org/schema/beans"
+                xmlns:mvc="http://www.springframework.org/schema/mvc"
+                xmlns:context="http://www.springframework.org/schema/context"
+                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:mv="http://www.springframework.org/schema/mvc"
+                xsi:schemaLocation="http://www.springframework.org/schema/beans
+                     http://www.springframework.org/schema/beans/spring-beans.xsd
+                     http://www.springframework.org/schema/context
+                     http://www.springframework.org/schema/context/spring-context.xsd
+                     http://www.springframework.org/schema/mvc
+                     http://www.springframework.org/schema/mvc/spring-mvc.xsd">
+             <!--
+            context:component-scan 标签作用
+            在Spring IOC初始化过程中,自动创建并管理com.imooc.springmvc及子包中
+            拥有以下注解的对象.
+            @Repository
+            @Service
+            @Controller
+            @Component
+            -->
+             <context:component-scan base-package="com.imooc.springmvc"/>
+             <!--启用Spring MVC的注解开发模式-->
+             <mvc:annotation-driven/>
+             <!-- 将图片/JS/CSS等静态资源排除在外,可提高执行效率 -->
+             <mvc:default-servlet-handler/>
+         
+         </beans>
+         
+8、URL Mapping
 
      （1）URL Mapping：将URL于Controller方法绑定，通过将URL与方法绑定，SpringMVC便可通过Tomcat对外
      暴露服务   
