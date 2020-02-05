@@ -98,3 +98,8 @@ SpringMVC相关
      @RequestMapping 通用绑定 ：作用在方法上，不区分get请求还是post请求；可以用在类上
      @GetMapping     绑定Get请求
      @PostMapping    绑定Post请求 
+     
+9、接受请求参数
+
+     （1）使用Controller方法参数接收
+     （2）使用Java Bean接收数据     

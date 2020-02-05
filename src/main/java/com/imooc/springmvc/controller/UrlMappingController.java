@@ -1,6 +1,8 @@
 package com.imooc.springmvc.controller;
 
+import com.imooc.springmvc.entity.User;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -9,9 +11,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @RequestMapping("/um")
 public class UrlMappingController {
 
-    @PostMapping("/post")
+    @GetMapping("/get")
     @ResponseBody
-    public String post(){
+    public String post(User user){
+        System.out.println(user.getUsername()+":"+user.getPassword());
         return "This is a post method!";
     }
 }
