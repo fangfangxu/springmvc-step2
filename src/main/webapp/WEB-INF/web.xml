@@ -3,4 +3,33 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
          version="3.1">
+    <!--配置DispatcherServlet-->
+    <servlet>
+        <servlet-name>springmvc</servlet-name>
+
+      <!--  DispatcherServlet是Spring MVC最核心的对象
+        DispatcherServlet用于拦截Http请求，
+        并根据请求的URL调用与之对应的Controller方法，来完成Http请求的处理
+        -->
+        <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+
+       <!--还得告诉DispatcherServlet在IOC容器初始化时要加载
+       哪个applicationContext.xml-->
+        <init-param>
+            <param-name>contextConfigLocation</param-name>
+            <param-value>classpath:applicationContext.xml</param-value>
+        </init-param>
+
+        <!--在web应用启动时自动创建Spring IOC容器，并初始化DispatcherServlet，
+        如果不配置，也会对IOC容器和DispatcherServlet进行初始化，只是实在第一次访
+        问URL的时候对其进行初始化-->
+        <load-on-startup>0</load-on-startup>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>springmvc</servlet-name>
+        <url-pattern>/</url-pattern>
+    </servlet-mapping>
+
+
 </web-app>
