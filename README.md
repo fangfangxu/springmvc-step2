@@ -21,3 +21,12 @@ SpringMVC相关
          2.web.xml配置DispatcherServlet
          3.配置applicationContext的mvc标记
          4.开发Controller控制器      
+         
+7、URL Mapping
+
+     （1）URL Mapping：将URL于Controller方法绑定，通过将URL与方法绑定，SpringMVC便可通过Tomcat对外
+     暴露服务   
+     （2）注解：
+     @RequestMapping 通用绑定 ：作用在方法上，不区分get请求还是post请求；可以用在类上
+     @GetMapping     绑定Get请求
+     @PostMapping    绑定Post请求 
