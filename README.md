@@ -214,10 +214,17 @@ SpringMVC相关
 13、响应对外输出结果
     
      @ResponseBody - 产生响应文本 
-     ModelAndView  - 利用模板引擎（jsp、freemaker..）渲染输出Model数据对象
-                     SpringMVC中默认的模板引擎是就是jsp
+     ModelAndView  - / 从应用的根路径
+                   - 利用模板引擎（jsp、freemaker..）渲染输出Model数据对象
+                   - SpringMVC中默认的模板引擎是就是jsp
                    -反应了MVC的设计理念，让数据和页面的展现进行解耦
-     
+                   -mav.addObject()方法设置的属性默认存放在当前请求中
+                   -默认new ModelAndView("/view.jsp")使用请求转发（forward）至页面
+                   -重定向使用 new ModelAndView（"redirect:/index.jsp"）
+     请求转发：地址栏不变、Controller和页面共享一个Request对象
+     重定向：地址栏变化、Controller通知客户端浏览器重新建立一个新的R
+             equest来访问新的地址
+        
          举例一：
          @GetMapping("/view")
          public ModelAndView showView(Integer id) {
