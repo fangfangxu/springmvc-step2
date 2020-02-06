@@ -92,7 +92,7 @@ SpringMVC相关
          
 8、URL Mapping
 
-     （1）URL Mapping：将URL于Controller方法绑定，通过将URL与方法绑定，SpringMVC便可通过Tomcat对外
+     （1）URL Mapping：将URL与Controller方法绑定，通过将URL与方法绑定，SpringMVC便可通过Tomcat对外
      暴露服务   
      （2）注解：
      @RequestMapping 通用绑定 ：作用在方法上，不区分get请求还是post请求；可以用在类上
@@ -103,3 +103,12 @@ SpringMVC相关
 
      （1）使用Controller方法参数接收
      （2）使用Java Bean接收数据     
+     
+10、  URI相对路径与绝对路径
+   ./相对当前路径
+   ![](./src/main/webapp/url.png)
+      
+      
+      
+      
+          
