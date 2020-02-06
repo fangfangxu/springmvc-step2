@@ -106,9 +106,26 @@ SpringMVC相关
      
 10、  URI相对路径与绝对路径
    
-   ./相对当前路径
-   
-   ![](./src/main/webapp/url.png)
+    说明： ./相对当前路径     
+        /project
+           /js
+              /jquery.js
+           /index.js
+           /index.html
+           
+           index.html-相对路径：   
+           <script src="./index.js"></script>
+           <script src="index.js"></script>
+           <script src="./js/jquery.js"></script>
+           
+           index.html-绝对路径：   
+           <script src="/project/index.js"></script>
+           <script src="/project/js/jquery.js"></script>
+  
+           错误范例：
+           <script src="/js/jquery.js"></script>
+           http://localhost:8080/js/jquery.js  404
+
       
       
       
