@@ -215,7 +215,7 @@ SpringMVC相关
     
      一、@ResponseBody - 产生响应文本 
      二、ModelAndView  - / 从应用的根路径（前边加斜线是绝对路径，不加是相对-即针对当前Contrller）
-                       - 利用模板引擎（jsp、freemaker..）渲染输出Model数据对象
+                       - 利用模板引擎（jsp、freemarker..）渲染输出Model数据对象
                        - SpringMVC中默认的模板引擎是就是jsp
                        -反应了MVC的设计理念，让数据和页面的展现进行解耦
                        -mav.addObject()方法设置的属性默认存放在当前请求中
@@ -260,4 +260,31 @@ SpringMVC相关
              mav.addObject("u", user);
              return mav;
          }
-                
+ 14、SpringMVC整合Freemarker     
+  
+     （1）pom中引入依赖     
+         freemarker、spring-context-support   
+     （2）启用Freemarker模板引擎（设置渲染后向客户端输出的字符集、后缀）
+     
+       <!--视图解析器：配置Freemarker引擎-->
+         <bean id="ViewResolver" class="org.springframework.web.servlet.view.freemarker.FreeMarkerViewResolver">
+             <!--指定FreeMarker模板文件扩展名-->
+             <property name="suffix" value=".ftl"></property>
+             <!--设置响应输出，并解决中文乱码-->
+             <property name="contentType" value="text/html;charset=utf-8"></property>
+         </bean>
+         
+     （3）配置Freemarker参数 （设置渲染时的字符集、模板加载的根路径）  
+     
+       <bean id="freeMarkerConfig" class="org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer">
+               <!--设置模板保存的目录-->
+               <property name="templateLoaderPath" value="/WEB-INF/ftl"></property>
+               <!--模板引擎其他设置-->
+               <property name="freemarkerSettings">
+                 <props>
+                     <!--设置Freemarker脚本与数据渲染时使用的字符集-->
+                     <prop key="defaultEncoding">UTF-8</prop>
+                 </props>
+             </property>
+         </bean>
+          
