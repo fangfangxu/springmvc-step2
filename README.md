@@ -101,12 +101,15 @@ SpringMVC相关
      
 9、接受请求参数
       
-      @RequestParam List<Integer> 用集合接收复合参数需要加上 @RequestParam
-      Map作为参数有缺陷：如果提交的表单不包含复合数据即（复选数组数据），可以
-                         用map来接收，但如果包含，map这能接收复合数据选的第一个值
      （1）使用Controller方法参数接收
      （2）使用Java Bean接收数据     
      
+     参数类型：
+       1、    @RequestParam List<Integer> 用集合接收复合参数需要加上 @RequestParam
+       2、    Map作为参数有缺陷：如果提交的表单不包含复合数据即（复选数组数据），可以
+                              用map来接收，但如果包含，map这能接收复合数据选的第一个值
+       3、日期类型转换:将前端传过来的String转换成Date
+          @DateTimeFormat(pattern = "yyyy-MM-dd") Date date                        
 10、  URI相对路径与绝对路径
    
     说明： ./相对当前路径   
@@ -131,7 +134,37 @@ SpringMVC相关
            <script src="/js/jquery.js"></script>
            http://localhost:8080/js/jquery.js  404
 
-      
+11、全局默认时间转换器
+    
+    （1）自定义时间转换器
+    /**
+     * 时间转换器：将String转换成日期类型
+     */
+    public class MyDateConverter implements Converter<String, Date> {
+        public Date convert(String s) {
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+            Date date = null;
+            try {
+                date = sdf.parse(s);
+                return date;
+            } catch (ParseException e) {
+                return null;
+            }
+        }
+    }
+    （2）将自定义的时间转换器配置在applicationContext.xml中
+       <!--转换器Service、并将其注入到mvc:annotation-driven-->
+        <bean id="conversionService" class="org.springframework.format.support.FormattingConversionServiceFactoryBean">
+        <property name="converters">
+                <set>
+                    <bean class="com.imooc.springmvc.converter.MyDateConverter"/>
+                </set>
+        </property>
+        </bean>
+        
+        <!--启用Spring MVC的注解开发模式-->
+            <mvc:annotation-driven conversion-service="conversionService"/>
+               
       
       
       
