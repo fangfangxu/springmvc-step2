@@ -210,3 +210,26 @@ SpringMVC相关
                     </bean>
                 </mvc:message-converters>
             </mvc:annotation-driven>
+            
+13、响应对外输出结果
+    
+     @ResponseBody - 产生响应文本 
+     ModelAndView  - 利用模板引擎（jsp、freemaker..）渲染输出Model数据对象
+                     SpringMVC中默认的模板引擎是就是jsp
+                   -反应了MVC的设计理念，让数据和页面的展现进行解耦
+     
+         举例一：
+         @GetMapping("/view")
+         public ModelAndView showView(Integer id) {
+             //  "/"此处是从应用的根路径进行访问
+             ModelAndView mav = new ModelAndView("/view.jsp");
+             User user = new User();
+             if (id == 1) {
+                 user.setUsername("wangyx");
+             } else {
+                 user.setUsername("xuff");
+             }
+             mav.addObject("u", user);
+             return mav;
+         }
+                
