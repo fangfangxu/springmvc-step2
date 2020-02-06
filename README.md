@@ -105,7 +105,9 @@ SpringMVC相关
      （2）使用Java Bean接收数据     
      
 10、  URI相对路径与绝对路径
+   
    ./相对当前路径
+   
    ![](./src/main/webapp/url.png)
       
       
