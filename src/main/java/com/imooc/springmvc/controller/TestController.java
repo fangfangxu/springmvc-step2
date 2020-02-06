@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 public class TestController {
     @GetMapping("/t")
     @ResponseBody
-    public String test() {
+    public String test(String name) {
         return "SUCCESS111";
     }
 }

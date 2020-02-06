@@ -165,7 +165,48 @@ SpringMVC相关
         <!--启用Spring MVC的注解开发模式-->
             <mvc:annotation-driven conversion-service="conversionService"/>
                
+12、Web应用中的中文乱码问题
+
+    Web应用中的中文乱码由来
+    *Tomcat默认使用字符集ISO-8859-1,属于西欧字符集
+    *解决乱码的核心思路是将ISO-8859-1转换为UTF-8
+    *Controller中请求与响应都需要设置UTF-8字符集    
       
-      
-      
-          
+    中文乱码的配置：
+    Get请求乱码-server.xml增加URIEncoding属性 tomcat8以后自己默认为UTF-8字符集，
+          tomcat8以前要设置UTF-8,这儿要根据版本区分对待
+    Post请求乱码-web.xml配置CharacterEncodingFilter
+    Response响应乱码-Spring配置StringHttpMessageConverter       
+    
+    eg：
+    Post请求乱码-web.xml配置CharacterEncodingFilter
+       <!--配置post请求字符集-->
+        <filter>
+            <filter-name>characterFilter</filter-name>
+            <filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
+            <init-param>
+                <param-name>encoding</param-name>
+                <param-value>UTF-8</param-value>
+            </init-param>
+        </filter>
+        <filter-mapping>
+            <filter-name>characterFilter</filter-name>
+            <url-pattern>/*</url-pattern>
+        </filter-mapping>
+        
+        eg:
+        Response响应乱码-Spring配置StringHttpMessageConverter  (消息转换器)
+           
+            <!--启用Spring MVC的注解开发模式-->
+            <mvc:annotation-driven conversion-service="conversionService">
+                <mvc:message-converters>
+                    <bean class="org.springframework.http.converter.StringHttpMessageConverter">
+                        <property name="supportedMediaTypes">
+                            <list>
+                                <!--response.setContentType("text/html;charset=utf-8");-->
+                                <value>text/html;charset=utf-8</value>
+                            </list>
+                        </property>
+                    </bean>
+                </mvc:message-converters>
+            </mvc:annotation-driven>
