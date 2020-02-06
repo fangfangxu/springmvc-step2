@@ -18,7 +18,7 @@
    @Controller
    @Component
    -->
-    <context:component-scan base-package="com.imooc.springmvc"/>
+    <context:component-scan base-package="com.imooc"/>
     <!--启用Spring MVC的注解开发模式-->
     <mvc:annotation-driven conversion-service="conversionService">
         <mvc:message-converters>
