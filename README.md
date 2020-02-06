@@ -100,13 +100,18 @@ SpringMVC相关
      @PostMapping    绑定Post请求 
      
 9、接受请求参数
-
+      
+      @RequestParam List<Integer> 用集合接收复合参数需要加上 @RequestParam
+      Map作为参数有缺陷：如果提交的表单不包含复合数据即（复选数组数据），可以
+                         用map来接收，但如果包含，map这能接收复合数据选的第一个值
      （1）使用Controller方法参数接收
      （2）使用Java Bean接收数据     
      
 10、  URI相对路径与绝对路径
    
-    说明： ./相对当前路径     
+    说明： ./相对当前路径   
+            URI：统一资源定位符，是URL的一个子集。
+                 把主机和端口前半部分去掉 。 
         /project
            /js
               /jquery.js
