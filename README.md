@@ -363,7 +363,7 @@ SpringMVC相关
       （四）简单请求与非简单请求
            简单请求：是指标准结构的HTTP请求，对应GET/POST请求
            非简单请求： 复杂要求的HTTP请求，PUT/DELETE、扩展标准请求（GET/POST请求扩展了额外的自定义请求头）
-           
+                        
            两者最大区别是非简单请求发送前需要发送预检请求
            
            最早的SpringMVC是为我们网页服务的，默认网页提交的时候只支持两种get和post，对于非简单请求，SpringMVC
@@ -441,7 +441,14 @@ SpringMVC相关
             1.注解@CrossOrigin-Controller跨域注解
                          http://localhost:80页面  访问  http://localhost:8080服务器接口属于跨域
                          在8080端：
-                         @CrossOrigin(origins = "http://localhost")
+                         @CrossOrigin(origins = "http://localhost",maxAge = 3600)
+                                           maxAge:设置预检请求的缓存时间为1小时，非简单请求
+                                             （PUT/DELETE）客户端向服务器发送请求会经过预检请求、
+                                              真实请求两个，那么设置maxAge后，同样的PUT/DELETE
+                                              再次发送请求，在1小时内，不会经过预检请求，直接发送
+                                              真实请求，这样会帮助我们缓解服务器压力，maxAge是将我们
+                                              预检请求的处理结果进行缓存。
+         
             2、<mvc:cors>-Spring MVC全局跨域配置
             
       
