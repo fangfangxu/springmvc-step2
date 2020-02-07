@@ -76,7 +76,7 @@
         $(function () {
             $("#quertBtns").click(function () {
                 $.ajax({
-                    url: "/restful/persons",
+                    url: "http://localhost:80/restful/persons",
                     type: "get",
                     dataType: "json",
                     success: function (json) {

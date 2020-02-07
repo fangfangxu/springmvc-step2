@@ -430,3 +430,20 @@ SpringMVC相关
        2、只要协议、域名、端口有任何一个不同，都被当做是不同的域
        3、如果出现跨域问题，在浏览器的Console就会出现 Access-Control-Allow-Origin 的报错，
        这个错误告诉我们触发了同源策略，请求得到的结果并不会被浏览器处理
+       4、HTML中允许跨域的标签：<img><script><link>
+       
+      （七）SpringMVC跨域访问：CrossOrigin注解解决跨域访问
+            1、CORS跨域资源访问
+            *CORS是一种机制，使用额外的HTTP头通知浏览器可以访问其他域
+            *URL响应头包含Access-Control-*指明请求允许跨域
+            2、
+           解决跨域的两种方式：
+            1.注解@CrossOrigin-Controller跨域注解
+                         http://localhost:80页面  访问  http://localhost:8080服务器接口属于跨域
+                         在8080端：
+                         @CrossOrigin(origins = "http://localhost")
+            2、<mvc:cors>-Spring MVC全局跨域配置
+            
+      
+      
+      

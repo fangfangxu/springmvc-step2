@@ -10,6 +10,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/restful")
+@CrossOrigin(origins = {"http://localhost"})
 public class RestfulController {
 
     @GetMapping("/request")
