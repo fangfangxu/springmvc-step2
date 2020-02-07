@@ -1,5 +1,6 @@
 package com.imooc.restful.controller;
 
+import com.imooc.restful.entity.Person;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -13,15 +14,21 @@ public class RestfulController {
         return "{\"message\":\"徐doGetRequest\"}";
     }
 
-    @PostMapping("/request")
+    /**
+     * /restful/request/100
+     * @return
+     */
+    @PostMapping("/request/{rid}")
     @ResponseBody
-    public String doPostRequest(){
-        return "{\"message\":\"徐doPostRequest\"}";
+    public String doPostRequest(@PathVariable("rid") Integer id, Person person){
+        System.out.println("name:"+person.getName()+",age:"+person.getAge());
+        return "{\"message\":\"徐doPostRequest\",\"rid\":"+id+"}";
     }
 
     @PutMapping("/request")
     @ResponseBody
-    public String doPutMapping(){
+    public String doPutMapping(Person person){
+        System.out.println("name:"+person.getName()+",age:"+person.getAge());
         return "{\"message\":\"徐PutMapping\"}";
     }
 

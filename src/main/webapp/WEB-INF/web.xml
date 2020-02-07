@@ -44,4 +44,16 @@
         <filter-name>characterFilter</filter-name>
         <url-pattern>/*</url-pattern>
     </filter-mapping>
+
+    <!--SpringMVC中支持复杂请求传递参数的过滤器-->
+    <filter>
+        <filter-name>formContentFilter</filter-name>
+        <filter-class>org.springframework.web.filter.FormContentFilter</filter-class>
+    </filter>
+
+    <filter-mapping>
+        <filter-name>formContentFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+
 </web-app>

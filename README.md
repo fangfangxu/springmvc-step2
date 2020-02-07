@@ -290,6 +290,7 @@ SpringMVC相关
 
 15、REST与RESTful
       
+      （一）
       REST-表现层状态转换，资源在网络中以某种表现形式进行状态转移
       RESTful-是基于REST理念的一套开发风格（前后端分离），是具体的开发规则
       
@@ -303,6 +304,85 @@ SpringMVC相关
       使用URL作为用户交互入口
       明确的语义规范(GET|POST|PUT|DELETE)
       只返回数据（JSON|XML）,不包含任何展现        
-      
-      
-        
+     （二） 
+      简单demo：
+          <script src="jquery-3.3.1.min.js"></script>
+          <script>
+              $(function(){
+                  $("#btnGet").click(function () {
+                      $.ajax({
+                          url : "/restful/request",
+                          type : "get" ,
+                          dataType : "json" ,
+                          success : function(json){
+                              $("#message").text(json.message);
+                          }
+                      })
+                  });
+              })
+              </script>
+              
+              @Controller
+              @RequestMapping("/restful")
+              public class RestfulController {        
+                @GetMapping("/request")
+                @ResponseBody
+                public String doGetRequest(){
+                    return "{\"message\":\"徐doGetRequest\"}";
+                }            
+            }
+            
+     （三） RestController注解与路径变量（存放在URI中可变的一部分数值）
+       
+       （1）每一个方法上都写@ResponseBody很麻烦，Spring4后提供了RestController
+            注解，类上加上该注解，默认当前类中的方法返回的都是Rest形式的数据而不是
+            页面的跳转。RestController单纯就是为了简化开发的，没有任何别的作用
+
+       （2）路径变量
+          JS：
+               $(function(){
+                   $("#btnPost").click(function () {
+                       $.ajax({
+                           url : "/restful/request/1024",
+                           type : "post" ,
+                           dataType : "json" ,
+                           success : function(json){
+                               $("#message").text(json.message+","+json.rid);
+                           }
+                       })
+                   });
+               })
+               
+          JAVA:     
+          @PostMapping("/request/{rid}")
+           @ResponseBody
+           public String doPostRequest(@PathVariable("rid") Integer id){
+               return "{\"message\":\"徐doPostRequest\",\"rid\":"+id+"}";
+           }
+           
+      （四）简单请求与非简单请求
+           简单请求：是指标准结构的HTTP请求，对应GET/POST请求
+           非简单请求： 复杂要求的HTTP请求，PUT/DELETE、扩展标准请求（GET/POST请求扩展了额外的自定义请求头）
+           
+           两者最大区别是非简单请求发送前需要发送预检请求
+           
+           最早的SpringMVC是为我们网页服务的，默认网页提交的时候只支持两种get和post，对于非简单请求，SpringMVC
+           不能改原有代码，只能采取折中方案来解决该问题，提供了表单内容过滤器；
+           -FormContentFilter:是对SpringMVC能力的扩展，否则无法支持PUT/DELETE方式传递参数
+           
+               <!--SpringMVC中支持复杂请求传递参数的过滤器-->
+               <filter>
+                   <filter-name>formContentFilter</filter-name>
+                   <filter-class>org.springframework.web.filter.FormContentFilter</filter-class>
+               </filter>
+           
+               <filter-mapping>
+                   <filter-name>formContentFilter</filter-name>
+                   <url-pattern>/*</url-pattern>
+               </filter-mapping>
+           
+      （五）Json序列化
+
+
+            
+            

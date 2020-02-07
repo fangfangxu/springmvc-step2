@@ -21,11 +21,12 @@
         $(function(){
             $("#btnPost").click(function () {
                 $.ajax({
-                    url : "/restful/request",
+                    url : "/restful/request/1024",
                     type : "post" ,
+                    data:"name=lili&age=21",
                     dataType : "json" ,
                     success : function(json){
-                        $("#message").text(json.message);
+                        $("#message").text(json.message+","+json.rid);
                     }
                 })
             });
@@ -36,6 +37,7 @@
                 $.ajax({
                     url : "/restful/request",
                     type : "put" ,
+                    data:"name=lili&age=21",
                     dataType : "json" ,
                     success : function(json){
                         $("#message").text(json.message);
