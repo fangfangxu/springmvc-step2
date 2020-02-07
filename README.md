@@ -382,7 +382,45 @@ SpringMVC相关
                </filter-mapping>
            
       （五）Json序列化
-
-
+         1、引入依赖
+         jackson-core（2.9以后版本，否则有安全风险）2.9.9
+         jackson-databind
+         jackson-annotations
             
-            
+         2、Controller方法直接返回实体类型：
+         @GetMapping("/persons")
+             public List<Person> findPersons(){
+                 List<Person> list=new ArrayList<Person>();
+                 Person person1=new Person();
+                 person1.setName("wang宇");
+                 person1.setAge(10);
+                 person1.setDate(new Date());
+                 Person person2=new Person();
+                 person2.setName("xuf");
+                 person2.setAge(10);
+                 person2.setDate(new Date());
+                 list.add(person2);
+                 list.add(person1);
+                 return list;
+             }
+             
+         实体类处理：
+           @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
+             private Date date;
+         3、
+               $(function () {
+                     $("#quertBtns").click(function () {
+                         $.ajax({
+                             url: "/restful/persons",
+                             type: "get",
+                             dataType: "json",
+                             success: function (json) {
+                                 for (var i = 0; i < json.length; i++) {
+                                     var p = json[i];
+                                     $("#message2").append("<h2>" + p.name + "-" + p.age + "-" + p.date + "</h2>")
+                                 }
+         
+                             }
+                         })
+                     });
+                 })           
