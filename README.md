@@ -451,6 +451,13 @@ SpringMVC相关
          
             2、<mvc:cors>-Spring MVC全局跨域配置
             
+                    <!--配置浏览器跨域访问问题-->
+                    <mvc:cors>
+                        <mvc:mapping path="/restful/*"
+                                     allowed-origins="http://localhost"
+                                     max-age="3600"/>
+                    </mvc:cors>
       
-      
-      
+           以上应用专用于WEBAPI、不适用app、微信小程序，也就是只对外提供WEB数据服务的
+           话选择全局跨域配置；如果只是个别controller对外暴露服务的话选择注解；
+           如果两种方式都用了的话，以注解方式为准

@@ -10,7 +10,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/restful")
-@CrossOrigin(origins = {"http://localhost"},maxAge = 3600)
+//@CrossOrigin(origins = {"http://localhost"},maxAge = 3600)
 public class RestfulController {
 
     @GetMapping("/request")
