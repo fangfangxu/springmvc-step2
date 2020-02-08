@@ -462,4 +462,51 @@ SpringMVC相关
            话选择全局跨域配置；如果只是个别controller对外暴露服务的话选择注解；
            如果两种方式都用了的话，以注解方式为准
            
-16、SpringMVC拦截器       
+16、SpringMVC标准组件：拦截器-Interceptor
+      
+       Interceptor被创建后是天然的运行在Spring IOC容器中的
+     （一）
+     拦截器-Interceptor
+     *拦截器(Interceptor)用于对URL请求进行前置/后置过滤
+     *Interceptor与Filter(J2EE标准组件)用途相似，但实现方式不同
+     *Interceptor底层就是基于Spring AOP面向切面编程实现
+     
+     拦截器开发流程
+     1.Maven依赖servlet-api 3.1.0
+   
+     2.实现HandlerInterceptor接口
+       *preHandle -前置执行处理：在HandlerAdapter.handle()方法之前被调用
+       *postHandle -目标资源已被Spring MVC框架处理：在HandlerAdapter.handle()方法之后，视图渲染之前被调用
+       *afterCompletion -响应文本已经产生：视图渲染之后被调用
+       
+       public class MyInterceptor implements HandlerInterceptor {
+           public boolean preHandle(HttpServletRequest request, 
+                                    HttpServletResponse response, Object handler) throws Exception {
+              System.out.println(request.getRequestURL()+
+                      "-前置处理:在HandlerAdapter.handle()方法之前被调用");
+              return true;
+           }
+       
+           public void postHandle(HttpServletRequest request, 
+                                  HttpServletResponse response, Object handler, 
+                                  ModelAndView modelAndView) throws Exception {
+               System.out.println(request.getRequestURL()+
+                       "-目标处理成功：在HandlerAdapter.handle()方法之后，视图渲染之前被调用");
+           }
+       
+           public void afterCompletion(HttpServletRequest request,
+                                       HttpServletResponse response,
+                                       Object handler, Exception ex) throws Exception {
+               System.out.println(request.getRequestURL()+
+                       "-响应内容已产生：视图渲染之后被调用");
+           }
+       }
+       
+     3.applicationContext配置过滤地址      
+           <!--配置拦截器-->
+           <mvc:interceptors>
+               <mvc:interceptor>
+                   <mvc:mapping path="/**"/>
+                   <bean class="com.imooc.restful.interceptor.MyInterceptor"/>
+               </mvc:interceptor>
+           </mvc:interceptors> 

@@ -71,4 +71,12 @@
                      allowed-origins="http://localhost"
                      max-age="3600"/>
     </mvc:cors>
+
+    <!--配置拦截器-->
+    <mvc:interceptors>
+        <mvc:interceptor>
+            <mvc:mapping path="/**"/>
+            <bean class="com.imooc.restful.interceptor.MyInterceptor"/>
+        </mvc:interceptor>
+    </mvc:interceptors>
 </beans>
