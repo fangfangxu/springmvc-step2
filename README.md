@@ -639,3 +639,11 @@ SpringMVC相关
 <p align="center">
 <img src="https://img-blog.csdnimg.cn/2020020821114241.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2dlbVhYRg==,size_16,color_FFFFFF,t_70" width=""/>
 </a>
+
+额外：
+
+git svn ：版本控制工具，俗称csv。
+
+GitHub：是基于git管理的开源社区，github也可以设置license，标明你的project的开源协议。
+
+gitlab：公司下的项目当然不能开源，所以针对这种内网局域网下管理，git出的就叫gitlab
