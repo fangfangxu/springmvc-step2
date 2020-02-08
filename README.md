@@ -510,3 +510,19 @@ SpringMVC相关
                    <bean class="com.imooc.restful.interceptor.MyInterceptor"/>
                </mvc:interceptor>
            </mvc:interceptors> 
+           
+           
+     （二）拦截器使用技巧
+     
+      1、拦截器不受下列配置影响，对静态资源同样产生拦截
+         <!-- 将图片/JS/CSS等静态资源排除在外,可提高执行效率 -->
+                 <mvc:default-servlet-handler/>      、
+         
+         解决： 
+         过滤与排除：
+         <mvc:mapping path="/restful/**"/>哪些映射范围可以拦截
+         <mvc:exclude-mapping path="/resources/**"/>
+         将静态资源放在一个目录下，放在该目录下的资源文件不进行拦截       
+          
+      2、多过滤器存在执行顺序如下：
+        
