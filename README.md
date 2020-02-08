@@ -636,4 +636,6 @@ SpringMVC相关
           </mvc:interceptors>
           
 17、SpringMVC处理流程
-![](https://github.com/fangfangxu/springmvc-step2/blob/master/src/main/webapp/resources/image/springmvc.png)
+<p align="center">
+<img src="https://img-blog.csdnimg.cn/2020020821114241.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2dlbVhYRg==,size_16,color_FFFFFF,t_70" width=""/>
+</a>
