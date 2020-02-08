@@ -12,8 +12,8 @@ public class MyInterceptor implements HandlerInterceptor {
                              HttpServletResponse response, Object handler) throws Exception {
        System.out.println(request.getRequestURL()+
                "MyInterceptor-前置处理:在HandlerAdapter.handle()方法之前被调用");
-       response.getWriter().print("[1]");
-       return false;
+//       response.getWriter().print("[1]");
+       return true;
     }
 
     public void postHandle(HttpServletRequest request,

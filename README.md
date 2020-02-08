@@ -563,3 +563,74 @@ SpringMVC相关
             response.getWriter().print("[1]");
             return false;
          }
+         
+         
+       3、开发用户流量拦截器
+        （1）
+        maven:
+        <!-- https://mvnrepository.com/artifact/ch.qos.logback/logback-classic -->
+        <dependency>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-classic</artifactId>
+            <version>1.2.3</version>
+            <scope>test</scope>
+        </dependency>
+        
+        （2）创建logback核心配置文件：logback.xml
+        
+     <?xml version="1.0" encoding="UTF-8"?>
+     <configuration>
+         <appender name="console" class="ch.qos.logback.core.ConsoleAppender">
+             <!--日志输出格式-->
+             <encoder>
+                 <pattern>[%thread] %d %level %logger{10} -%msg%n</pattern>
+             </encoder>
+         </appender>
+         <!--生成按天产生的日志到日志文件中-->
+         <appender name="accessHistoryLog" class="ch.qos.logback.core.rolling.RollingFileAppender">
+             <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+                 <fileNamePattern>d:/logs/history.%d.log</fileNamePattern>
+             </rollingPolicy>
+             <!--日志输出格式-->
+             <encoder>
+                 <pattern>[%thread] %d %level %logger{10} -%msg%n</pattern>
+             </encoder>
+         </appender>
+         <root level="debug">
+             <appender-ref ref="console"/>
+         </root>
+         <!--日志滚动文件accessHistoryLog设置完成想让其生效进行如下配置-->
+         <!--additivity="false" 叠加的意思，为true时也会向控制台输出日志-->
+         <logger name="com.imooc.restful.interceptor.AccessHistoryInterceptor"
+          level="INFO" additivity="false">
+           <appender-ref ref="accessHistoryLog"/>
+         </logger>
+     </configuration>
+     
+      （3）拦截器
+      public class AccessHistoryInterceptor implements HandlerInterceptor {
+          private Logger logger= LoggerFactory.getLogger(AccessHistoryInterceptor.class);
+      
+          public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
+              StringBuffer sb=new StringBuffer();
+              //远程用户的ip地址：可分析用户来自那个省市
+              sb.append(request.getRemoteAddr());
+              sb.append("|");
+               //用户访问的url地址
+              sb.append(request.getRequestURL());
+              sb.append("|");
+              //用户的客户端环境
+              sb.append(request.getHeader("user-agent"));
+              logger.info(sb.toString());
+              return true;
+          }
+      }
+      
+      （4）applicationContext.xml
+      <mvc:interceptors>
+              <mvc:interceptor>
+                  <mvc:mapping path="/**"/>
+                  <mvc:exclude-mapping path="/resources/**"/>
+                  <bean class="com.imooc.restful.interceptor.AccessHistoryInterceptor"/>
+              </mvc:interceptor>
+          </mvc:interceptors>

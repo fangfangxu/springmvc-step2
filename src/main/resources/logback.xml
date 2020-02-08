@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    <appender name="console" class="ch.qos.logback.core.ConsoleAppender">
+        <!--日志输出格式-->
+        <encoder>
+            <pattern>[%thread] %d %level %logger{10} -%msg%n</pattern>
+        </encoder>
+    </appender>
+    <!--生成按天产生的日志到日志文件中-->
+    <appender name="accessHistoryLog" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>d:/logs/history.%d.log</fileNamePattern>
+        </rollingPolicy>
+        <!--日志输出格式-->
+        <encoder>
+            <pattern>[%thread] %d %level %logger{10} -%msg%n</pattern>
+        </encoder>
+    </appender>
+    <root level="debug">
+        <appender-ref ref="console"/>
+    </root>
+    <!--日志滚动文件accessHistoryLog设置完成想让其生效进行如下配置-->
+    <!--additivity="false" 叠加的意思，为true时也会向控制台输出日志-->
+    <logger name="com.imooc.restful.interceptor.AccessHistoryInterceptor"
+     level="INFO" additivity="false">
+      <appender-ref ref="accessHistoryLog"/>
+    </logger>
+</configuration>
