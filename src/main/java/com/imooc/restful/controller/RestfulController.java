@@ -1,7 +1,6 @@
 package com.imooc.restful.controller;
 
 import com.imooc.restful.entity.Person;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;

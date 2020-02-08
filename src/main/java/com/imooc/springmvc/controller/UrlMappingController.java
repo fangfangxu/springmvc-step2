@@ -38,7 +38,7 @@ public class UrlMappingController {
     @GetMapping("/view")
     public ModelAndView showView(Integer id) {
         //  "/"此处是从应用的根路径进行访问
-        ModelAndView mav = new ModelAndView("/view.jsp");
+        ModelAndView mav = new ModelAndView("/resources/view.jsp");
         User user = new User();
         if (id == 1) {
             user.setUsername("wangyx");
@@ -54,7 +54,7 @@ public class UrlMappingController {
     //2. 方法不存在@ResponseBody，则SpringMVC处理String指代的视图（页面）
     @GetMapping("/view1")
     public String showView(Integer id, ModelMap model){
-        String viewName="/view.jsp";
+        String viewName="/resources/view.jsp";
         User user = new User();
         if (id == 1) {
             user.setUsername("wangyx");
