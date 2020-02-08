@@ -524,5 +524,42 @@ SpringMVC相关
          <mvc:exclude-mapping path="/resources/**"/>
          将静态资源放在一个目录下，放在该目录下的资源文件不进行拦截       
           
-      2、多过滤器存在执行顺序如下：
+      2、多拦截器存在执行顺序如下：
+         
+            <mvc:interceptors>
+                <mvc:interceptor>
+                    <mvc:mapping path="/**"/>
+                    <mvc:exclude-mapping path="/resources/**"/>
+                    <bean class="com.imooc.restful.interceptor.MyInterceptor"/>
+                </mvc:interceptor>
+                <mvc:interceptor>
+                    <mvc:mapping path="/**"/>
+                    <mvc:exclude-mapping path="/resources/**"/>
+                    <bean class="com.imooc.restful.interceptor.MyInterceptor1"/>
+                </mvc:interceptor>
+            </mvc:interceptors>
         
+        （1）
+        执行顺序
+        MyInterceptor---preHandle   return true;
+        MyInterceptor1---preHandle  return true;
+        
+        MyInterceptor1---postHandle
+        MyInterceptor---postHandle
+        
+        MyInterceptor1---afterCompletion
+        MyInterceptor---afterCompletion
+        
+               
+        （2）
+        执行顺序
+        MyInterceptor---preHandle   return false;
+     
+        可以直接响应给浏览器：
+         public boolean preHandle(HttpServletRequest request,
+                                  HttpServletResponse response, Object handler) throws Exception {
+            System.out.println(request.getRequestURL()+
+                    "MyInterceptor-前置处理:在HandlerAdapter.handle()方法之前被调用");
+            response.getWriter().print("[1]");
+            return false;
+         }

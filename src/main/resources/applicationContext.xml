@@ -79,5 +79,10 @@
             <mvc:exclude-mapping path="/resources/**"/>
             <bean class="com.imooc.restful.interceptor.MyInterceptor"/>
         </mvc:interceptor>
+        <mvc:interceptor>
+            <mvc:mapping path="/**"/>
+            <mvc:exclude-mapping path="/resources/**"/>
+            <bean class="com.imooc.restful.interceptor.MyInterceptor1"/>
+        </mvc:interceptor>
     </mvc:interceptors>
 </beans>
