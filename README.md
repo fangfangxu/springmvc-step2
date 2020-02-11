@@ -642,7 +642,7 @@ SpringMVC相关
 
 额外：
 
-git svn ：版本控制工具，俗称csv。
+git svn ：版本控制工具，俗称vcs。
 
 GitHub：是基于git管理的开源社区，github也可以设置license，标明你的project的开源协议。
 
